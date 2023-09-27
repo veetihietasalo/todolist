@@ -1,31 +1,51 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import TodoTable from './TodoTable';  // Muista tuoda TodoTable
 
-function TodoList() {
-  const [desc, setDesc] = useState('');
+const TodoList = () => {
+  const [todo, setTodo] = useState({ description: '', date: '' });
   const [todos, setTodos] = useState([]);
 
   const inputChanged = (event) => {
-    setDesc(event.target.value);
-  }
+    const { name, value } = event.target;
+    setTodo({ ...todo, [name]: value });
+  };
 
   const addTodo = (event) => {
     event.preventDefault();
-    setTodos([...todos, desc]);
-  }
+    setTodos([...todos, todo]);
+  };
+
+  const deleteTodo = (index) => {
+    setTodos(todos.filter((todo, i) => i !== index));
+  };
 
   return (
     <div className="App">
-      <input type="text" onChange={inputChanged} value={desc}/>
+      <h1>Todolist Sovellus</h1>
+      <div className="input-section">
+        <label htmlFor="description">Description: </label>
+        <input 
+          type="text" 
+          id="description" 
+          name="description" 
+          onChange={inputChanged} 
+          value={todo.description} 
+        />
+      </div>
+      <div className="input-section">
+        <label htmlFor="date">Date: </label>
+        <input 
+          type="date" 
+          id="date" 
+          name="date" 
+          onChange={inputChanged} 
+          value={todo.date} 
+        />
+      </div>
       <button onClick={addTodo}>Add</button>
-      <table>
-        <tbody>
-          {
-            todos.map(todo => <tr><td>{todo}</td></tr>)
-          }
-        </tbody>
-      </table>   
+      <TodoTable todos={todos} deleteTodo={deleteTodo} />
     </div>
   );
-};
+}
 
 export default TodoList;
