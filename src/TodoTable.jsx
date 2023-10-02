@@ -1,27 +1,23 @@
 import React from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
 
 const TodoTable = ({ todos, deleteTodo }) => {
+  const columnDefs = [
+    { headerName: "Description", field: "description", filter: true, floatingFilter: true },
+    { headerName: "Date", field: "date", filter: true, floatingFilter: true },
+    { headerName: "Actions", field: "actions", cellRendererFramework: params => <button onClick={() => deleteTodo(params.rowIndex)}>Delete</button> }
+  ];
+
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          todos.map((todo, index) => (
-            <tr key={index}>
-              <td>{todo.description}</td>
-              <td>{todo.date}</td>
-              <td><button onClick={() => deleteTodo(index)}>Delete</button></td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+    <div className="ag-theme-alpine" style={{ height: 400, width: '100%' }}>
+      <AgGridReact
+        columnDefs={columnDefs}
+        rowData={todos}
+        animateRows={true}
+      />
+    </div>
   );
 };
 
