@@ -1,0 +1,53 @@
+/* General layout */
+.App {
+    text-align: center;
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+  }
+  
+  /* Heading */
+  h1 {
+    color: #333366;
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  /* Input sections */
+  .input-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-section label {
+    font-size: 1.2em;
+  }
+  
+  /* DatePicker customization */
+  .MuiFormControl-root {
+    width: 50%;
+  }
+  
+  /* Button */
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #333366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  /* Ag-Grid */
+  .ag-theme-alpine {
+    margin: auto;
+    margin-top: 20px;
+  }
+  
+  /* Delete button in Ag-Grid */
+  button:focus {
+    outline: none;
+  }
+  

@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
-import TodoTable from './TodoTable';  // Muista tuoda TodoTable
+import TodoTable from './TodoTable';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import './App.css';
 
 const TodoList = () => {
-  const [todo, setTodo] = useState({ description: '', date: '' });
+  const [todo, setTodo] = useState({ description: '', date: null });
   const [todos, setTodos] = useState([]);
 
   const inputChanged = (event) => {
     const { name, value } = event.target;
     setTodo({ ...todo, [name]: value });
+  };
+
+  const dateChanged = (newDate) => {
+    setTodo({ ...todo, date: newDate });
   };
 
   const addTodo = (event) => {
@@ -32,20 +40,20 @@ const TodoList = () => {
           value={todo.description} 
         />
       </div>
-      <div className="input-section">
-        <label htmlFor="date">Date: </label>
-        <input 
-          type="date" 
-          id="date" 
-          name="date" 
-          onChange={inputChanged} 
-          value={todo.date} 
-        />
-      </div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <div className="input-section">
+          <label htmlFor="date">Date: </label>
+          <DatePicker
+            label="Date"
+            value={todo.date}
+            onChange={dateChanged}
+          />
+        </div>
+      </LocalizationProvider>
       <button onClick={addTodo}>Add</button>
       <TodoTable todos={todos} deleteTodo={deleteTodo} />
     </div>
   );
-}
+};
 
 export default TodoList;
